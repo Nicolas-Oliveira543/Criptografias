@@ -1,0 +1,28 @@
+def caesar_shift_char(ch, n):
+    if 'a' <= ch <= 'z':
+        return chr((ord(ch) - ord('a') + n) % 26 + ord('a'))
+    elif 'A' <= ch <= 'Z':
+        return chr((ord(ch) - ord('A') + n) % 26 + ord('A'))
+    return ch
+
+    def caesar(text, n):
+        return ''.join(caesar_shift_char(ch, n) for ch in text)
+    
+    Vowel_map = {"a":"4", "e":"3", "i":"1", "o":"0", "u":"7",
+                 "A":"4", "E":"3", "I":"1", "O":"0", "U":"7" }
+    Inv_vowel_map = {v: k for k, v in Vowel_map.items()}
+
+    def invert_text(text): return text[::-1]
+
+    def incrypt_triple_caesarding(text, n):
+        return "".join([Vowel_map.get(ch, ch) for ch in
+                        caesar(invert_text(caesar(text, n)), n)])
+    def decrypt_triple_caesarding(text, n):
+        t1 = "".join([Inv_vowel_map.get(ch, ch) for ch in text])
+        return caesar(invert_text(caesar(t1, -n)), -n)
+
+    # Exemplo
+    msg = "Segredo do Rafael"
+    cifrada = incrypt_triple_caesarding(msg, 3)
+    print("Cifrada:", cifrada)
+    print("Decifrada:", decrypt_triple_caesarding(cifrada, 3))
