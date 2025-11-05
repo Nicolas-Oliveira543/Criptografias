@@ -17,6 +17,7 @@ def caesar_shift_char(ch, n):
     def incrypt_triple_caesarding(text, n):
         return "".join([Vowel_map.get(ch, ch) for ch in
                         caesar(invert_text(caesar(text, n)), n)])
+
     def decrypt_triple_caesarding(text, n):
         t1 = "".join([Inv_vowel_map.get(ch, ch) for ch in text])
         return caesar(invert_text(caesar(t1, -n)), -n)
